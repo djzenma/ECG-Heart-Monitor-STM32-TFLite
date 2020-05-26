@@ -70,7 +70,8 @@ static void MX_TIM15_Init(void);
 /* USER CODE BEGIN 0 */
 uint32_t adcRaw;
 float adcValue;
-float ecg[187];
+const int IN_SIZE = 187;
+float ecg[IN_SIZE];
 int i = 0;
 short ready = 0;
 char txData[100]; 
@@ -86,7 +87,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	HAL_ADC_Stop(&hadc1);
 	
-	if(i == 187){
+	if(i == IN_SIZE){
 		ready = 1;
 		i = 0;
 	}

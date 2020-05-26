@@ -62,6 +62,8 @@
 #include <stdlib.h>
 
 extern UART_HandleTypeDef huart2;
+extern const int IN_SIZE;
+extern float ecg[];
 
 /* Global handle to reference the instance of the NN */
 static ai_handle network = AI_HANDLE_NULL;
@@ -157,8 +159,8 @@ int MX_X_CUBE_AI_Process(void)
     AI_ALIGNED(4)
     static ai_i8 out_data[AI_NETWORK_OUT_1_SIZE_BYTES];
 					
-		for (int i=0; i<sizeof(tst); i++){
-				((ai_float *) in_data)[i] = (ai_float) tst[i];
+		for (int i=0; i<IN_SIZE; i++){
+				((ai_float *) in_data)[i] = (ai_float) ecg[i];
 		}
 	
 		/* Perform the inference */
