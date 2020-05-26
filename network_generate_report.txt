@@ -1,0 +1,58 @@
+Neural Network Tools for STM32 v1.2.0 (AI tools v5.0.0)
+Created date       : 2020-05-26 11:00:06
+
+Exec/report summary (generate dur=1.326s err=0)
+------------------------------------------------------------------------------------------------------------------------
+model file         : C:\Users\IEUser\Desktop\my_model.h5
+type               : keras (keras_dump)
+c_name             : network
+compression        : 8
+quantize           : None
+L2r error          : NOT EVALUATED
+workspace dir      : C:\Users\IEUser\AppData\Local\Temp\mxAI_workspace14977793816900814410373113406745
+output dir         : C:\Users\IEUser\.stm32cubemx\stm32ai_output
+
+model_name         : my_model
+model_hash         : 084fcb8c8056673c7d71383d802246e9
+input              : input_0 [187 items, 748 B, ai_float, FLOAT32, (187,)]
+input (total)      : 748 B
+output             : dense_3_nl [5 items, 20 B, ai_float, FLOAT32, (5,)]
+output (total)     : 20 B
+params #           : 12,205 items (47.68 KiB)
+macc               : 12,275
+weights (ro)       : 6,692 (6.54 KiB) (-86.29%) 
+activations (rw)   : 400 (400 B) 
+ram (total)        : 1,168 (1.14 KiB) = 400 + 748 + 20
+
+------------------------------------------------------------------------------------------------------------------------
+id  layer (type)              output shape      param #     connected to             macc           rom                
+------------------------------------------------------------------------------------------------------------------------
+0   input_0 (Input)           (187,)                                                                                   
+    dense_1 (Dense)           (50,)             9,400       input_0                  9,350          4,964 (c)          
+    dense_1_nl (Nonlinearity) (50,)                         dense_1                  50                                
+------------------------------------------------------------------------------------------------------------------------
+1   dense_2 (Dense)           (50,)             2,550       dense_1_nl               2,500          1,516 (c)          
+    dense_2_nl (Nonlinearity) (50,)                         dense_2                  50                                
+------------------------------------------------------------------------------------------------------------------------
+2   dense_3 (Dense)           (5,)              255         dense_2_nl               250            212 (c)            
+    dense_3_nl (Nonlinearity) (5,)                          dense_3                  75                                
+------------------------------------------------------------------------------------------------------------------------
+my_model p=12205(47.68 KBytes) macc=12275 rom=6.54 KBytes (-86.29%) ram=400 B io_ram=768 B
+
+ 
+Complexity per-layer - macc=12,275 rom=6,692
+------------------------------------------------------------------------------------------------------------------------
+id      layer (type)              macc                                    rom                                    
+------------------------------------------------------------------------------------------------------------------------
+0       dense_1 (Dense)           |||||||||||||||||||||||||||||||  76.2%  |||||||||||||||||||||||||||||||  74.2% 
+0       dense_1_nl (Nonlinearity) |                                 0.4%  |                                 0.0% 
+1       dense_2 (Dense)           |||||||||                        20.4%  ||||||||||                       22.7% 
+1       dense_2_nl (Nonlinearity) |                                 0.4%  |                                 0.0% 
+2       dense_3 (Dense)           |                                 2.0%  ||                                3.2% 
+2       dense_3_nl (Nonlinearity) |                                 0.6%  |                                 0.0% 
+------------------------------------------------------------------------------------------------------------------------
+
+
+Evaluation report (summary)
+--------------------------------------------------
+NOT EVALUATED
