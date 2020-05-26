@@ -80,7 +80,7 @@
 #define AI_MNETWORK_DATA_ACTIVATIONS_INT_SIZE AI_NETWORK_DATA_ACTIVATIONS_SIZE
 
 void MX_X_CUBE_AI_Init(void);
-void MX_X_CUBE_AI_Process(void);
+int MX_X_CUBE_AI_Process(void);
 int aiInit(const ai_u8* activations);
 int aiRun(const void *in_data, void *out_data);
 

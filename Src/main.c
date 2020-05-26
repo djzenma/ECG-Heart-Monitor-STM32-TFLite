@@ -69,17 +69,27 @@ static void MX_TIM15_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint32_t adcRaw;
+float adcValue;
+float ecg[187];
+int i = 0;
+short ready = 0;
 char txData[100]; 
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	HAL_ADC_Start(&hadc1);
 	if(HAL_ADC_PollForConversion(&hadc1, 1000) == HAL_OK) {
-			adcRaw = HAL_ADC_GetValue(&hadc1);
-			sprintf(txData, "%d \r\n", adcRaw);
-		  HAL_UART_Transmit(&huart2, (uint8_t *) txData, strlen(txData), 1000);
+		adcRaw = HAL_ADC_GetValue(&hadc1);
+		adcValue = adcRaw * 3.3 / 4095;
+		ecg[i] = adcValue;
+		i++;
 	}
 	HAL_ADC_Stop(&hadc1);
+	
+	if(i == 187){
+		ready = 1;
+		i = 0;
+	}
 }
 
 /* USER CODE END 0 */
@@ -126,21 +136,19 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-		int res;
+	int res;
 
   while (1)
   {
     /* USER CODE END WHILE */
-
-  //MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
-	/*	HAL_ADC_Start(&hadc1);
-		
-		// Read the value
-		if(HAL_ADC_PollForConversion(&hadc1, 1000) == HAL_OK) 
-			adcRaw = HAL_ADC_GetValue(&hadc1);
-			sprintf(txData, "%d \r\n", adcRaw);
-			HAL_UART_Transmit(&huart2, (uint8_t *) txData, strlen(txData), 1000);*/
+	
+		if(ready){
+			res = MX_X_CUBE_AI_Process();
+			ready = 0;
+			sprintf(txData, "%d\r\n", res);
+			HAL_UART_Transmit(&huart2, (uint8_t *) txData, strlen(txData), 1000);
+		}
   }
   /* USER CODE END 3 */
 }
