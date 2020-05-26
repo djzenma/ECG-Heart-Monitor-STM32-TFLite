@@ -138,7 +138,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	int res;
-
+	char heartClass[20] = "";
   while (1)
   {
     /* USER CODE END WHILE */
@@ -147,7 +147,25 @@ int main(void)
 		if(ready){
 			res = MX_X_CUBE_AI_Process();
 			ready = 0;
-			sprintf(txData, "%d\r\n", res);
+			
+			switch(res){
+				case 1:
+					sprintf(heartClass, "%s", "Normal");
+					break;
+				case 2:
+					sprintf(heartClass, "%s", "Supraventricular");
+					break;
+				case 3:
+					sprintf(heartClass, "%s", "Ventricular");
+					break;
+				case 4:
+					sprintf(heartClass, "%s", "Fusion");
+					break;
+				case 5:
+					sprintf(heartClass, "%s", "Unknown");
+					break;
+			}
+			sprintf(txData, "%s\r\n", heartClass);
 			HAL_UART_Transmit(&huart2, (uint8_t *) txData, strlen(txData), 1000);
 		}
   }
