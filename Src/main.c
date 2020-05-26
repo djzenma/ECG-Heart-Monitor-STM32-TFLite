@@ -81,16 +81,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	HAL_ADC_Start(&hadc1);
 	if(HAL_ADC_PollForConversion(&hadc1, 1000) == HAL_OK) {
 		adcRaw = HAL_ADC_GetValue(&hadc1);
-		adcValue = adcRaw * 3.3 / 4095;
+		
+		// Normalization between 0 and 1
+		adcValue = adcRaw * 1.0 / 4095;
 		ecg[i] = adcValue;
 		i++;
 	}
 	HAL_ADC_Stop(&hadc1);
 	
+	// If R Peak
+	if((adcValue>=0.9 && i>100) || (i == IN_SIZE)){
+		// PAD remaining with 0s
+		for(int j=i; j<IN_SIZE; j++)
+			ecg[j] = 0;
+		ready = 1;
+		i = 0;		
+	}
+	/*
 	if(i == IN_SIZE){
 		ready = 1;
 		i = 0;
 	}
+	*/
 }
 
 /* USER CODE END 0 */
