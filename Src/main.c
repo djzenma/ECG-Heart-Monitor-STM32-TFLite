@@ -76,17 +76,27 @@ int i = 0;
 short ready = 0;
 char txData[100]; 
 
+
+/*
+*			Called whenever the TIM15 raises an interrupt indication that the timer reached the value in the AR register which is 8 to let the ADC do the conversion
+*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	// Start ADC
 	HAL_ADC_Start(&hadc1);
+	
+	// Get the converted sample
 	if(HAL_ADC_PollForConversion(&hadc1, 1000) == HAL_OK) {
 		adcRaw = HAL_ADC_GetValue(&hadc1);
 		
 		// Normalization between 0 and 1
 		adcValue = adcRaw * 1.0 / 4095;
+		
+		// Store the sample in its corresponding index
 		ecg[i] = adcValue;
 		i++;
 	}
+	// Stop the ADC
 	HAL_ADC_Stop(&hadc1);
 	
 	// If R Peak
@@ -157,9 +167,11 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	
 		if(ready){
+			// Predict the patient's class
 			res = MX_X_CUBE_AI_Process();
 			ready = 0;
 			
+			// Convert the prediction to its label and send it using UART
 			switch(res){
 				case 1:
 					sprintf(heartClass, "%s", "Normal");
