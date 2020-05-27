@@ -27,7 +27,20 @@ Project File Date:  05/26/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'ai1'
-"ai1\ai1.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Src/main.c(103): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        if((adcValue>=0.9 && i>100) || (i == IN_SIZE)){
+../Src/main.c: 1 warning, 0 errors
+compiling app_x-cube-ai.c...
+../Src/app_x-cube-ai.c(155): warning:  #550-D: variable "res"  was set but never used
+                int res;
+../Src/app_x-cube-ai.c(158): warning:  #177-D: variable "tst"  was declared but never referenced
+                float tst[] = {0.15041783,0.24233983,0.34540391,0.50696379,0.57103062,0.62952644,0.73537606,0.81615597,0.80501395,0.82451254,0.82451254,0.83286905,0.83286905,0.84401113,0.83844012,0.8551532,0.85793871,0.87465179,0.88022286,0.89972144,0.89972144,0.92200559,0.91922003,0.93871868,0.93871868,0.96657383,0.96100277,0.97493035,0.96657383,0.98607242,0.98607242,1.,0.99164343,0.99442899,0.98328692,0.98050141,0.96935934,0.95821726,0.94707519,0.93593317,0.90807801,0.90250695,0.88300836,0.88022286,0.8551532,0.86350977,0.84122562,0.84401113,0.82172704,0.82729805,0.81058496,0.81337047,0.79387188,0.79665738,0.7799443,0.77437323,0.76044565,0.76323122,0.75208914,0.75208914,0.74094707,0.74651814,0.72980499,0.74373257,0.72980499,0.74651814,0.71587741,0.71030641,0.7047354,0.72144848,0.7047354,0.71030641,0.69637883,0.7047354,0.68802226,0.7047354,0.69080782,0.69637883,0.68523675,0.70194983,0.69359332,0.7047354,0.68523675,0.69916433,0.68523675,0.69637883,0.67688024,0.71030641,0.69637883,0.71587741,0.71587741,0.707520
+../Src/app_x-cube-ai.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=17168 RO-data=8120 RW-data=1788 ZI-data=18812  
+FromELF: creating hex file...
+"ai1\ai1.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +63,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.4.0
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:20
 </pre>
 </body>
 </html>
